@@ -45,7 +45,7 @@ else
 {  
     ?>  
       
-   <h1>Register</h1>  
+   <!-- <h1>Register</h1>  
       
    <p>Please enter your details below to register.</p>  
       
@@ -56,7 +56,30 @@ else
         <label for="email">Email Address:</label><input type="text" name="email" id="email" /><br />  
         <input type="submit" name="register" id="register" value="Register" />  
     </fieldset>  
-    </form>  
+    </form> -->  
+
+
+    <div class="modal" id="myModal"  tabindex="-1" role="dialog" aria-hidden="True">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">X</button> -->
+        <h1>Register</h1>
+        <h3>Please enter your details below to register.</h3>
+      </div>
+
+      <div class="modal-body">
+        <form method="post" action="register.php" name="registerform" id="registerform">
+            <fieldset>
+          <p><input type="text" class="span3" name="username" id="username" placeholder="Username"></p>
+          <p><input type="password" class="span3" name="password" id="password" placeholder="Password"></p>
+          <p><input type="email" class="span3" name="email" id="email" placeholder="E-Mail"></p>
+          <p><button type="submit" class="btn btn-primary" name="register" id="register">Register</button> </p>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <a href="register.php" class="btn btn-primary"></a> -->
+      </div>
+    </div>
       
     <?php  
 }  

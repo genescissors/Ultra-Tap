@@ -1,3 +1,4 @@
+<?php include "base.php"; ?>
 <!DOCTYPE>
 <html>
 <head>
@@ -21,23 +22,66 @@
           <!--<a class="brand" href="#"></a>-->
           <div class="nav-collapse">
             <ul class="nav pull-right">
-              <li><a class="disabled">Products</a></li>
+              <!-- <li><a class="disabled">Products</a></li> -->
               <li class="divider-vertical"></li>
 
-              <li><a href="apple.php">Apple</a></li>
-              <li><a href="samsung.php">Samsung</a></li>
-              <li><a href="htc.php">HTC</a></li>
-              
-      <!--        <li class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#">LANGUAGE <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">EN</a></li>
-                    <li><a href="#">ID</a></li>
-                    <li><a href="#">FR</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">IT</a></li>
-                  </ul>
-                </li> -->
+             <?php  
+if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))  
+{  
+     ?>  
+   
+     <li><a href="" class="disabled">Hi! <?=$_SESSION['Username']?></a></li>  
+      <li><a href="logout.php">Sign Out</a></li>
+     <?php  
+}  
+elseif(!empty($_POST['username']) && !empty($_POST['password']))  
+{  
+    $username = mysql_real_escape_string($_POST['username']);  
+    $password = md5(mysql_real_escape_string($_POST['password']));  
+      
+    $checklogin = mysql_query("SELECT * FROM users WHERE Username = '".$username."' AND Password = '".$password."'");  
+      
+    if(mysql_num_rows($checklogin) == 1)  
+    {  
+        $row = mysql_fetch_array($checklogin);  
+        $email = $row['EmailAddress'];  
+          
+        $_SESSION['Username'] = $username;  
+        $_SESSION['EmailAddress'] = $email;  
+        $_SESSION['LoggedIn'] = 1;  
+        
+          
+        echo "<h1>Success</h1>";  
+        echo "<p>We are now redirecting you to the member area.</p>";  
+     //   echo "<meta http-equiv='refresh' content='=0;index.php' />"; 
+        echo "<meta content='0;samsung-s4.php' http-equiv='refresh'>"; 
+    }  
+    else  
+    {  
+        echo "<h1>Error</h1>";  
+        echo "<p>Sorry, your account could not be found. Please <a href=\"login.php\">click here to try again</a>.</p>";  
+    }  
+}  
+else  
+{  
+    ?>  
+      
+     <li><a href="login.php">Sign In</a></li>
+      <li><a href="register.php">Sign Up</a></li>
+   <!-- <p>Thanks for visiting! Please either login below, or <a href="register.php">click here to register</a>.</p> --> 
+      
+   <!--  <form method="post" action="login.php" name="loginform" id="loginform">  
+    <fieldset>  
+        <li><a class="disabled">Username:</a></li>
+        <li><a class="disabled"><input type="text" name="username" id="username" /></a></li>  
+        <li for="password"><a class="disabled">Password:</a></li><input type="password" name="password" id="password" />
+        <li><a href=""><input type="submit" name="login" id="login" value="Login" />  
+    </fieldset>  
+    </form>  --> 
+      
+   <?php  
+}  
+?>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -203,7 +247,7 @@
                     </p>
                     <p><h2>PHP 35,500.00</h2></p>
                     <p>
-                        <form class="form-horizontal">
+                                 <!-- <form class="form-horizontal">
                             <div class="control-group">
                                 <label for="select01" class="control-label t-left">Color</label>
                                 <div class="controls">
@@ -211,7 +255,6 @@
                                     <option>- Choose your color -</option>
                                     <option>White</option>
                                     <option>Black</option>
-                                    <option>Red</option>
                           
                                   </select>
                                 </div>
@@ -223,7 +266,16 @@
                                 </div>
                               </div>
                               <div class="form-actions">
-                                <button class="btn" type="submit">Add to Cart</button>
+                                <button class="btn" type="submit">Add to Cart</button> -->
+                                <form action="order.php">
+                              <div class="form-actions">
+                                <?php 
+                                  $price = "35500";
+                                  $_SESSION['Price'] = $price;
+                                  $model = "HTC One";
+                                  $_SESSION['CellphoneModel'] = $model;
+                                ?>
+                                <button class="btn" type="submit"><a href="order.php">Order</a></button>
                               </div>
                         </form>
                     </p>

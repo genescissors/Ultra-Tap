@@ -1,3 +1,4 @@
+<?php include "base.php"; ?>
 <!DOCTYPE>
 <html>
 <head>
@@ -60,6 +61,7 @@
                 <li><a href="about.php">About us</a></li>
                 <li><a href="products.php">Products</a></li>
                 <li><a href="howto.php">How to Order</a></li>
+                <li><a href="register.php"></a>Register</li>
             </ul>
         </div>
 

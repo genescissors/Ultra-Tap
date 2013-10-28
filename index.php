@@ -1,3 +1,4 @@
+<?php include "base.php"; ?>
 <!DOCTYPE>
 <html>
 <head>
@@ -21,13 +22,82 @@
           <!--<a class="brand" href="#"></a>-->
           <div class="nav-collapse">
             <ul class="nav pull-right">
-              <li><a class="disabled">Products</a></li>
               <li class="divider-vertical"></li>
+              <?php  
+if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))  
+{  
+     ?>  
+   
+     <li><a href="" class="disabled">Hi! <?=$_SESSION['Username']?></a></li>  
+      <li><a href="logout.php">Sign Out</a></li>
+     <?php  
+}  
+elseif(!empty($_POST['username']) && !empty($_POST['password']))  
+{  
+    $username = mysql_real_escape_string($_POST['username']);  
+    $password = md5(mysql_real_escape_string($_POST['password']));  
+      
+    $checklogin = mysql_query("SELECT * FROM users WHERE Username = '".$username."' AND Password = '".$password."'");  
+      
+    if(mysql_num_rows($checklogin) == 1)  
+    {  
+        $row = mysql_fetch_array($checklogin);  
+        $email = $row['EmailAddress'];  
+          
+        $_SESSION['Username'] = $username;  
+        $_SESSION['EmailAddress'] = $email;  
+        $_SESSION['LoggedIn'] = 1;  
+          
+        echo "<h1>Success</h1>";  
+        echo "<p>We are now redirecting you to the member area.</p>";  
+     //   echo "<meta http-equiv='refresh' content='=0;index.php' />"; 
+        echo "<meta content='0;index.php' http-equiv='refresh'>"; 
+    }  
+    else  
+    {  
+        echo "<h1>Error</h1>";  
+        echo "<p>Sorry, your account could not be found. Please <a href=\"login.php\">click here to try again</a>.</p>";  
+    }  
+}  
+else  
+{  
+    ?>  
+      
+     <!-- <li><a href="login.php">Sign In</a></li> -->
+      <li><a href="login.php">Login</a></li>
+      <li><a href="register.php">Sign Up</a></li>
+   <!-- <p>Thanks for visiting! Please either login below, or <a href="register.php">click here to register</a>.</p> --> 
+      
+   <!--  <form method="post" action="login.php" name="loginform" id="loginform">  
+    <fieldset>  
+        <li><a class="disabled">Username:</a></li>
+        <li><a class="disabled"><input type="text" name="username" id="username" /></a></li>  
+        <li for="password"><a class="disabled">Password:</a></li><input type="password" name="password" id="password" />
+        <li><a href=""><input type="submit" name="login" id="login" value="Login" />  
+    </fieldset>  
+    </form>  --> 
+   <!--  <div class="clearfix"></div>
+    <div class="modal hide fade in" id="myModal"  tabindex="-1" role="dialog" aria-hidden="True">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">X</button>
+        <h1>Log-In</h1>
+      </div>
 
-              <li><a href="apple.php">Apple</a></li>
-              <li><a href="samsung.php">Samsung</a></li>
-              <li><a href="htc.php">HTC</a></li>
-              
+      <div class="modal-body">
+        <form method="post" action="index.php" name="loginform" id="loginform">
+          <p><input type="text" class="span3" name="username" id="username" placeholder="Username"></p>
+          <p><input type="password" class="span3" name="password" id="password" placeholder="Password"></p>
+          <p><button type="button" class="btn btn-primary" name="login" id="login">Sign In</button> </p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="register.php" class="btn btn-primary">Register</a>
+      </div>
+    </div> -->
+      
+   <?php  
+}  
+?> 
       <!--        <li class="dropdown">
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#">LANGUAGE <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -57,9 +127,11 @@
         <div class="span12 nav-menus">
             <ul class="nav nav-pills">
                 <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="about.php">About us</a></li>
+           <!--      <li><a href="about.php">About us</a></li> -->
                 <li><a href="products.php">Products</a></li>
-                <li><a href="howto.php">How to Order</a></li>
+                <li><a href="order.php">Order</a></li>
+                <!-- <li><a href="register.php">Register</a></li> -->
+               <!--  <li><a href="login.php">Log-in</a></li> -->
             </ul>
         </div>
 

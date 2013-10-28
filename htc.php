@@ -1,3 +1,4 @@
+<?php include "base.php"; ?>
 <!DOCTYPE>
 <html>
 <head>
@@ -49,14 +50,14 @@
 	
 	<div class="row-fluid">
 	<div class="span6 logo">
-	<a href="home.php"></a><div class="brand logo"><img src="static/img/shop-logo.png"></div><br>
+	<a href="index.php"></a><div class="brand logo"><img src="static/img/shop-logo.png"></div><br>
 	<!--<p>Tap Gadgets Specialists</p> -->
 	</div>
 	</div>
 <div class="row-fluid">
         <div class="span12 nav-menus">
             <ul class="nav nav-pills">
-                <li><a href="home.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About us</a></li>
                 <li class="active"><a href="products.php">Products</a></li>
                 <li><a href="howto.phps">How to Order</a></li>
@@ -79,7 +80,7 @@
             <div class="span10">
             <div class="row-fluid">
                 <ul class="breadcrumb">
-                    <li><a href="home.php">Home</a> <span class="divider">/</span></li>
+                    <li><a href="index.php">Home</a> <span class="divider">/</span></li>
                     <li><a href="products.php">Products</a> <span class="divider">/</span></li>
                     <li class="active">HTC<span class="divider"></span></li>
                 </ul>
